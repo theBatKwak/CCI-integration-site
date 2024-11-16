@@ -12,7 +12,8 @@
         <router-link to="/bien-etre">Bien Être</router-link>
         <router-link to="/seminaires">Séminaires</router-link>
         <router-link to="/offrir">Offrir</router-link>
-        <router-link to="/contact">Contact & Accès</router-link>
+        <router-link v-if="!isLoggedIn" to="/login">Se connecter</router-link>
+        <p v-else>Bonjour, {{ userName }}</p>
       </div>
       <div class="buttons-container">
         <button>
@@ -54,7 +55,7 @@
           <router-link to="/bien-etre">Bien Être</router-link>
           <router-link to="/seminaires">Séminaires</router-link>
           <router-link to="/offrir">Offrir</router-link>
-          <router-link to="/contact">Contact & Accès</router-link>
+          <router-link to="/login">Se connecter</router-link>
           <div class="buttons-container">
             <button>
               <img src="../assets/globe.png" alt="logo globe" /> Langue
@@ -68,33 +69,21 @@
 </template>
 
 <script>
+  import { useUserStore } from "../stores/user.store"
   export default {
     data() {
       return {
         mobileNavIsOpen: false,
-        // currentScroll: 0,
       }
     },
-    /* computed: {
-      navBackground: function () {
-        return this.currentScroll <= 500 ? "transparent" : "var(--primary)"
+    computed: {
+      isLoggedIn: function () {
+        return useUserStore().isLoggedIn
+      },
+      userName: function () {
+        return useUserStore().firstName
       },
     },
-    // Hook : quand le composant est créé
-    created() {
-      // On ajoute un event listener au scroll, qui va appeler la méthode "handleScroll"
-      window.addEventListener("scroll", this.handleScroll)
-    },
-    // Quand le composant est retiré du DOM, on retire notre event listener
-    unmounted() {
-      window.removeEventListener("scroll", this.handleScroll)
-    },
-    methods: {
-      handleScroll() {
-        // On affecte à la data "currentScroll" la valeur du scroll actuel dans la fenêtre
-        this.currentScroll = window.scrollY
-      },
-    }, */
   }
 </script>
 
